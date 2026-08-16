@@ -1,0 +1,1 @@
+Final visual update: removed Active Members/social elements; inner Seasons/Running Season screens are slightly brighter while keeping existing season/player records and navigation intact.
