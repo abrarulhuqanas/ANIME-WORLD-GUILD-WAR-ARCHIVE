@@ -1,1 +1,13 @@
-Final visual update: removed Active Members/social elements; inner Seasons/Running Season screens are slightly brighter while keeping existing season/player records and navigation intact.
+ANIME WORLD GUILD WAR ARCHIVE — FIXED BUILD
+
+Changes made:
+- Removed Guest login completely.
+- Only Google and Facebook sign-in remain.
+- Game UID is required after sign-in.
+- Fixed the broken JavaScript structure that prevented the main website from opening after authentication.
+- After an existing user logs in, or after a new user saves a valid Game UID, the site now opens the main Home screen.
+- Added Season 13 Round 8 dated 22 August 2026 with the supplied ranking and scores.
+- Updated Season 13 running-round count to 8.
+
+IMPORTANT BEFORE DEPLOYING:
+The Firebase configuration embedded in index.html is the configuration that was already present in the original file. Google/Facebook sign-in will work only if that exact Firebase project has the providers enabled and the deployed domain is listed in Firebase Authentication > Settings > Authorized domains. Do not replace the Firebase config unless you have the correct Web App configuration values from your Firebase project.
