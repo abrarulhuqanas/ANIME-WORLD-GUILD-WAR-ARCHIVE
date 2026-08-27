@@ -1304,7 +1304,7 @@ main{position:relative!important;z-index:1!important}
     </div>
 
     <div id="awLoginStatus" class="aw-login-note">
-      Sign in with Google or Facebook. Your name and Game UID are required to finish account setup.
+      Sign in with Google or Facebook. Your Game UID is required to finish account setup.
     </div>
   </div>
 </div>
@@ -1313,13 +1313,11 @@ main{position:relative!important;z-index:1!important}
   <div class="aw-login-box aw-uid-box">
     <img class="aw-login-logo" src="assets/anime-world-logo-circle.png" alt="ANIME WORLD">
     <div class="aw-login-title">PLAYER UID</div>
-    <div class="aw-login-sub">Enter your name and game UID to finish creating your ANIME WORLD account.</div>
-    <input id="awPlayerName" class="aw-uid-input" autocomplete="name"
-           placeholder="Enter your Name">
+    <div class="aw-login-sub">Enter your game UID to finish creating your ANIME WORLD account.</div>
     <input id="awGameUid" class="aw-uid-input" inputmode="numeric" autocomplete="off"
            placeholder="Enter your Game UID">
     <button class="aw-uid-submit" type="button" onclick="awSaveUid()">CREATE ACCOUNT</button>
-    <div id="awUidStatus" class="aw-login-note">Your name and UID are required. You cannot continue without them.</div>
+    <div id="awUidStatus" class="aw-login-note">Your UID is required. You cannot continue without it.</div>
   </div>
 </div>
 
@@ -1752,13 +1750,13 @@ drawParticles();
 <script id="aw-login-screen-script">
 (function(){
   const firebaseConfig={
-    apiKey:"AIzaSyD5eUEaVso8odMPgYb25skTEujMsaJDkEM",
-    authDomain:"mister-hub-a8dd0.firebaseapp.com",
-    projectId:"mister-hub-a8dd0",
-    storageBucket:"mister-hub-a8dd0.firebasestorage.app",
-    messagingSenderId:"876525094698",
-    appId:"1:876525094698:web:eef54fc2ab1ca2fd830053",
-    measurementId:"G-RT3F7T9Q0T"
+    apiKey:"AIzaSyDC3yV-n_JQ6MvzfiIoyw0FhP7dHoU_Q7s",
+    authDomain:"anime-world-310b2.firebaseapp.com",
+    projectId:"anime-world-310b2",
+    storageBucket:"anime-world-310b2.firebasestorage.app",
+    messagingSenderId:"530911276020",
+    appId:"1:530911276020:web:a88f501d9775b61c8127a1",
+    measurementId:"G-M1WG1K4DJG"
   };
 
   let awAuth=null, awDb=null, awPendingUser=null;
@@ -1814,6 +1812,8 @@ drawParticles();
       if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
       awAuth=firebase.auth();
       awDb=firebase.firestore();
+      // Keep the user signed in after refresh/reopen when the browser allows it.
+      awAuth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(console.warn);
 
       awAuth.onAuthStateChanged(async function(user){
         if(!user) return;
@@ -1825,11 +1825,11 @@ drawParticles();
         awPendingUser=user;
         try{
           const snap=await awDb.collection("players").doc(user.uid).get();
-          if((snap.exists && snap.data().gameUid) || localStorage.getItem("aw_game_uid_"+user.uid)) enterMainSite();
+          if(snap.exists && snap.data().gameUid) enterMainSite();
           else showUid();
         }catch(e){
           console.warn(e);
-          if(localStorage.getItem("aw_game_uid_"+user.uid)) enterMainSite(); else showUid();
+          showUid();
         }
       });
       return true;
@@ -1848,10 +1848,16 @@ drawParticles();
       if(!awAuth && !initFirebase()) throw new Error("Firebase is not available.");
       const p=new firebase.auth.GoogleAuthProvider();
       p.setCustomParameters({prompt:"select_account"});
-      await awAuth.signInWithPopup(p);
+      setStatus("Opening Google sign-in...");
+      const result=await awAuth.signInWithPopup(p);
+      if(!result || !result.user) throw new Error("Google sign-in returned no user.");
+      setStatus("Google login successful. Loading your account...");
     }catch(e){
-      console.error(e);
-      setStatus("Google Login failed. Make sure Google Sign-In is enabled in Firebase.");
+      console.error("Google login error:", e);
+      const code=e && e.code ? e.code : "unknown-error";
+      const msg=(e && e.message) ? e.message : "Unknown error";
+      setStatus("Google Login failed: " + code + " — " + msg);
+
     }
   };
 
@@ -1863,19 +1869,22 @@ drawParticles();
     try{
       if(!awAuth && !initFirebase()) throw new Error("Firebase is not available.");
       const p=new firebase.auth.FacebookAuthProvider();
-      await awAuth.signInWithPopup(p);
+      setStatus("Opening Facebook sign-in...");
+      const result=await awAuth.signInWithPopup(p);
+      if(!result || !result.user) throw new Error("Facebook sign-in returned no user.");
+      setStatus("Facebook login successful. Loading your account...");
     }catch(e){
-      console.error(e);
-      setStatus("Facebook Login needs Facebook provider enabled in Firebase.");
+      console.error("Facebook login error:", e);
+      const code=e && e.code ? e.code : "unknown-error";
+      const msg=(e && e.message) ? e.message : "Unknown error";
+      setStatus("Facebook Login failed: " + code + " — " + msg);
+
     }
   };
 
   window.awSaveUid=async function(){
     const input=document.getElementById("awGameUid");
-    const nameInput=document.getElementById("awPlayerName");
     const uid=(input.value||"").trim();
-    const playerName=(nameInput.value||"").trim();
-    if(playerName.length<2){ setUidStatus("Enter your name."); return; }
     if(!/^[0-9]{5,20}$/.test(uid)){
       setUidStatus("Enter a valid numeric Game UID (5–20 digits).");
       return;
@@ -1889,22 +1898,16 @@ drawParticles();
       await awDb.collection("players").doc(awPendingUser.uid).set({
         gameUid:uid,
         uid:awPendingUser.uid,
-        name:playerName||awPendingUser.displayName||"",
+        name:awPendingUser.displayName||"",
         email:awPendingUser.email||"",
         provider:(awPendingUser.providerData[0]&&awPendingUser.providerData[0].providerId)||"unknown",
         createdAt:firebase.firestore.FieldValue.serverTimestamp()
       },{merge:true});
       localStorage.setItem("aw_game_uid",uid);
-      localStorage.setItem("aw_game_uid_"+awPendingUser.uid,uid);
-      localStorage.setItem("aw_player_name_"+awPendingUser.uid,playerName);
       enterMainSite();
     }catch(e){
       console.error(e);
-      // Keep the account usable even if Firestore rules/network temporarily block saving.
-      localStorage.setItem("aw_game_uid",uid);
-      localStorage.setItem("aw_game_uid_"+awPendingUser.uid,uid);
-      localStorage.setItem("aw_player_name_"+awPendingUser.uid,playerName);
-      enterMainSite();
+      setUidStatus("Could not save UID. Check Firebase Firestore.");
     }
   };
 
@@ -1939,9 +1942,9 @@ drawParticles();
         }else{
           awPendingUser=user;
           awDb.collection("players").doc(user.uid).get().then(function(s){
-            if((s.exists && s.data().gameUid) || localStorage.getItem("aw_game_uid_"+user.uid)) enterMainSite();
+            if(s.exists && s.data().gameUid) enterMainSite();
             else showUid();
-          }).catch(function(){ if(localStorage.getItem("aw_game_uid_"+user.uid)) enterMainSite(); else showUid(); });
+          }).catch(function(){showUid();});
         }
       }else{
         showLogin();
