@@ -1,0 +1,19 @@
+ANIME WORLD deployment security review
+
+External script URLs found: 3
+https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js
+https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js
+https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js
+
+Iframes found: 0
+Form actions found: []
+Direct location assignments found: []
+Meta refresh tags found: []
+
+Changes made:
+- OAuth buttons explicitly say Continue with Google / Continue with Facebook.
+- Added a neutral security notice stating credentials are entered on the provider's own OAuth page.
+- Removed any obvious password/token localStorage writes if present.
+- Existing Firebase OAuth flow and player/profile features were preserved.
+
+Important: Search Console's 'Deceptive pages' classification cannot be cleared by code alone. After deploying the cleaned build, verify the live URL in Search Console and request a review only after the warning is resolved/eligible.
