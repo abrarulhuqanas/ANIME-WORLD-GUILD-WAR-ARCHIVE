@@ -1301,7 +1301,7 @@ main{position:relative!important;z-index:1!important}
 </style>
 
 <style id="aw-premium-avatar-picker">
-.aw-avatar-categories{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}.aw-avatar-categories span{font-size:10px;letter-spacing:1px;padding:6px 9px;border:1px solid #24516b;border-radius:999px;color:#8be7ff;background:#071b2b}.aw-avatar-picker{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:9px;margin:12px 0 8px}.aw-avatar-choice{aspect-ratio:1;border:1px solid rgba(110,210,255,.35);border-radius:15px;background:linear-gradient(145deg,#111a32,#06101e);display:grid;place-items:center;font-size:27px;cursor:pointer;transition:.18s;box-shadow:inset 0 0 15px rgba(40,160,255,.08)}.aw-avatar-choice:hover{transform:translateY(-2px);border-color:#48dcff}.aw-avatar-choice.selected{border:2px solid #48f5a4;background:linear-gradient(145deg,#123c37,#111a32);box-shadow:0 0 18px rgba(72,245,164,.2)}.aw-avatar-note{font-size:11px;color:#9aaec2;margin:5px 0 12px}.aw-profile-avatar.aw-avatar-emoji,.aw-fab-avatar.aw-avatar-emoji{object-fit:contain;background:linear-gradient(145deg,#102747,#241341);padding:10px;border:1px solid #46d7ff}.aw-avatar-preview{display:inline-grid;place-items:center;width:100%;height:100%;font-size:28px}@media(max-width:480px){.aw-avatar-picker{grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}.aw-avatar-choice{font-size:24px}}
+.aw-avatar-categories{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}.aw-avatar-categories button{font-size:10px;letter-spacing:.7px;padding:8px 10px;border:1px solid #24516b;border-radius:10px;color:#9bdfff;background:#071b2b;cursor:pointer;font-weight:800}.aw-avatar-categories button.active{color:#04131d;background:linear-gradient(135deg,#64e7ff,#a7f3d0);border-color:#b7f5ff;box-shadow:0 0 14px #48dcff33}.aw-avatar-picker{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:9px;margin:12px 0 8px}.aw-avatar-choice{aspect-ratio:1;border:1px solid rgba(110,210,255,.35);border-radius:13px;background:linear-gradient(145deg,#111a32,#06101e);display:grid;place-items:center;padding:5px;cursor:pointer;transition:.18s;box-shadow:inset 0 0 15px rgba(40,160,255,.08)}.aw-avatar-choice img{width:100%;height:76%;object-fit:contain;min-height:0}.aw-avatar-choice span{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.aw-avatar-choice:hover{transform:translateY(-2px);border-color:#48dcff}.aw-avatar-choice.selected{border:2px solid #48f5a4;background:linear-gradient(145deg,#123c37,#111a32);box-shadow:0 0 18px rgba(72,245,164,.2)}.aw-avatar-note{font-size:11px;color:#9aaec2;margin:5px 0 12px}.aw-profile-avatar{object-fit:contain}.aw-avatar-preview{display:inline-grid;place-items:center;width:100%;height:100%;font-size:28px}@media(max-width:480px){.aw-avatar-picker{grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}}
 </style>
 
 <style id="aw-google-button-premium-final">
@@ -1317,6 +1317,12 @@ main{position:relative!important;z-index:1!important}
 .aw-google-premium .aw-google-main{font-size:16px;line-height:1.2}
 .aw-google-premium .aw-google-caption{font-size:10px;line-height:1.2;color:#64748b;font-weight:650;letter-spacing:.5px;text-transform:uppercase}
 @media(max-width:520px){.aw-social.aw-google-premium{min-height:60px;padding:13px 15px;border-radius:14px}.aw-google-premium .aw-google-main{font-size:15px}}
+</style>
+
+
+<style id="round-lock-correction">
+.round-card.locked-round{border-color:rgba(255,190,80,.72)!important;background:linear-gradient(135deg,rgba(72,48,18,.62),rgba(12,17,28,.98))!important;cursor:not-allowed;opacity:.88}
+.round-card.locked-round b,.round-card.locked-round .count{color:#ffd48a!important}
 </style>
 
 </head>
@@ -1367,7 +1373,7 @@ main{position:relative!important;z-index:1!important}
 <div id="awProfileModal" aria-label="Player profile editor" role="dialog" aria-modal="true">
  <div class="aw-profile-card">
   <div class="aw-profile-head"><img id="awProfileAvatar" class="aw-profile-avatar" alt="Your profile picture"><div><div class="aw-profile-kicker">ANIME WORLD • PLAYER ID</div><div class="aw-profile-title">MY PROFILE</div><div class="aw-profile-help">Your account • Your identity • Your control</div></div></div>
-  <div class="aw-profile-field">CHOOSE YOUR GAMING AVATAR</div><div class="aw-avatar-categories"><span>ANIME</span><span>ESPORTS</span><span>UNIVERSAL</span></div><div id="awAvatarPicker" class="aw-avatar-picker" role="group" aria-label="Choose a gaming avatar"></div><div class="aw-avatar-note">Choose a built-in avatar. No photo upload or paid storage required.</div>
+  <div class="aw-profile-field">CHOOSE YOUR PROFILE LOGO</div><div class="aw-avatar-categories" id="awAvatarCategories" role="tablist" aria-label="Profile logo categories"><button type="button" class="active" data-category="GAMING" role="tab">GAMING LOGOS</button><button type="button" data-category="ESPORTS" role="tab">ESPORTS</button><button type="button" data-category="ANIME" role="tab">ANIME AVATARS</button><button type="button" data-category="UNIVERSAL" role="tab">MINIMAL</button></div><div id="awAvatarPicker" class="aw-avatar-picker" role="group" aria-label="Choose a profile logo"></div><div class="aw-avatar-note">Gaming and esports use dedicated emblem logos. Anime characters are in a separate category. All are built in—no upload or paid storage.</div>
   <label class="aw-profile-field" for="awProfileName">PLAYER NAME</label><input class="aw-profile-input" id="awProfileName" maxlength="32" autocomplete="nickname" placeholder="Your player name">
   <label class="aw-profile-field" for="awProfileUid">GAME UID • 10 DIGITS</label><input class="aw-profile-input" id="awProfileUid" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" placeholder="Enter your 10-digit Free Fire UID">
   <div class="aw-profile-help">You can edit only your own profile. Choose a built-in gaming avatar. No image upload or paid storage is needed. The UID must be exactly 10 digits.</div>
@@ -1642,8 +1648,8 @@ function showHonor(season){
 }
 // running rounds
 const roundGrid=document.getElementById('roundGrid'), leaderBody=document.getElementById('leaderBody');
-roundGrid.innerHTML=ROUNDS.map((r,i)=>`<button class="round-card ${r.noData?'noData':''}" data-round="${i}"><b>ROUND ${r.round}</b><div class="date">${r.date}</div><div class="count">${r.noData?'NO RECORD AVAILABLE • NO DATA':r.players.length+' PLAYERS • RECORDED'}</div></button>`).join('');
-function renderRound(i){const r=ROUNDS[i];document.getElementById('roundTitle').textContent='ROUND '+r.round;document.getElementById('roundDate').textContent=r.date;leaderBody.innerHTML=r.noData?'<tr><td colspan="3" class="no-record-cell">NO RECORD AVAILABLE<br><small>No player list or score was recorded for this round.</small></td></tr>':r.players.map((p,n)=>`<tr class="${n<3?'top'+(n+1):''}"><td class="rank">#${n+1}</td><td>${p[0]}</td><td class="score">${p[1]}</td></tr>`).join('');roundGrid.querySelectorAll('.round-card').forEach((c,n)=>c.classList.toggle('selected',n===i));}
+roundGrid.innerHTML=ROUNDS.map((r,i)=>`<button class="round-card ${r.noData?'noData locked-round':''}" data-round="${i}" ${r.noData?'aria-disabled="true" title="No record available"':''}><b>${r.noData?'🔒 ':''}ROUND ${r.round}</b><div class="date">${r.date}</div><div class="count">${r.noData?'LOCKED • NO RECORD AVAILABLE':r.players.length+' PLAYERS • RECORDED'}</div></button>`).join('');
+function renderRound(i){const r=ROUNDS[i];document.getElementById('roundTitle').textContent=(r.noData?'🔒 LOCKED • ROUND ':'ROUND ')+r.round;document.getElementById('roundDate').textContent=r.date;leaderBody.innerHTML=r.noData?'<tr><td colspan="3" class="no-record-cell">NO RECORD AVAILABLE<br><small>No player list or score was recorded for this round.</small></td></tr>':r.players.map((p,n)=>`<tr class="${n<3?'top'+(n+1):''}"><td class="rank">#${n+1}</td><td>${p[0]}</td><td class="score">${p[1]}</td></tr>`).join('');roundGrid.querySelectorAll('.round-card').forEach((c,n)=>c.classList.toggle('selected',n===i));}
 roundGrid.onclick=e=>{const c=e.target.closest('[data-round]');if(c)renderRound(+c.dataset.round)};renderRound(0);
 const s14Grid=document.getElementById('season14RoundGrid'), s14Body=document.getElementById('season14LeaderBody');
 s14Grid.innerHTML=SEASON14_ROUNDS.map((r,i)=>`<button class="round-card" data-s14-round="${i}"><b>ROUND ${r.round}</b><div class="date">${r.date}</div><div class="count">${r.players.length} PLAYERS • RECORDED</div></button>`).join('');
@@ -1872,39 +1878,50 @@ drawParticles();
     if(s) s.textContent=t;
   }
 
-  function initFirebase(){
+  let awFirebaseInitPromise=null;
+  async function initFirebase(){
     if(!isOnlineSite()) return false;
-    try{
-      if(!window.firebase) return false;
-      if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-      awAuth=firebase.auth();
-      awDb=firebase.firestore();
-      awStorage=null;
-      // Keep the user signed in after refresh/reopen when the browser allows it.
-      awAuth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(console.warn);
-
-      awAuth.onAuthStateChanged(async function(user){
-        if(!user) return;
-        if(user.isAnonymous){
-          await awAuth.signOut();
-          showLogin();
-          return;
-        }
-        awPendingUser=user;
-        try{
-          const snap=await awDb.collection("players").doc(user.uid).get();
-          if(snap.exists && snap.data().gameUid) { awCurrentProfile=snap.data(); enterMainSite(); }
-          else showUid();
-        }catch(e){
-          console.warn(e);
-          showUid();
-        }
-      });
-      return true;
-    }catch(e){
-      console.error(e);
-      return false;
-    }
+    if(awFirebaseInitPromise) return awFirebaseInitPromise;
+    awFirebaseInitPromise=(async function(){
+      try{
+        if(!window.firebase) return false;
+        if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+        awAuth=firebase.auth();
+        awDb=firebase.firestore();
+        awStorage=null;
+        // Persist sign-in on this browser/device until the player explicitly logs out.
+        // Wait for Firebase to restore its saved session before checking currentUser.
+        await awAuth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+        awAuth.onAuthStateChanged(async function(user){
+          if(!user){
+            awPendingUser=null;
+            awCurrentProfile={};
+            showLogin();
+            return;
+          }
+          if(user.isAnonymous){
+            await awAuth.signOut();
+            showLogin();
+            return;
+          }
+          awPendingUser=user;
+          try{
+            const snap=await awDb.collection("players").doc(user.uid).get();
+            if(snap.exists && snap.data().gameUid) { awCurrentProfile=snap.data(); enterMainSite(); }
+            else showUid();
+          }catch(e){
+            console.warn(e);
+            showUid();
+          }
+        });
+        return true;
+      }catch(e){
+        console.error(e);
+        awFirebaseInitPromise=null;
+        return false;
+      }
+    })();
+    return awFirebaseInitPromise;
   }
 
   window.awGoogleLogin=async function(){
@@ -1913,7 +1930,7 @@ drawParticles();
       return;
     }
     try{
-      if(!awAuth && !initFirebase()) throw new Error("Firebase is not available.");
+      if(!awAuth && !(await initFirebase())) throw new Error("Firebase is not available.");
       const p=new firebase.auth.GoogleAuthProvider();
       p.setCustomParameters({prompt:"select_account"});
       setStatus("Opening Google sign-in...");
@@ -1948,10 +1965,42 @@ drawParticles();
     }catch(e){console.error(e);setUidStatus("Could not save profile. Check Firebase Firestore rules and connection.");}
   };
 
-  function awAvatarData(emoji){
-    const safe=String(emoji||"⚔️").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-    return "data:image/svg+xml;charset=UTF-8,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#102747"/><stop offset="1" stop-color="#241341"/></linearGradient></defs><rect width="160" height="160" rx="80" fill="url(#g)"/><circle cx="80" cy="80" r="73" fill="none" stroke="#46d7ff" stroke-width="3"/><text x="80" y="100" text-anchor="middle" font-size="68">'+safe+'</text></svg>');
+  function awAvatarData(avatarId){
+    const id=String(avatarId||"g:lion");
+    if(!id.includes(":")){
+      const safe=id.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+      return "data:image/svg+xml;charset=UTF-8,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#102747"/><stop offset="1" stop-color="#241341"/></linearGradient></defs><rect width="160" height="160" rx="80" fill="url(#g)"/><circle cx="80" cy="80" r="73" fill="none" stroke="#46d7ff" stroke-width="3"/><text x="80" y="100" text-anchor="middle" font-size="68">'+safe+'</text></svg>');
+    }
+    const [cat,key]=id.split(":");
+    const palette={lion:['#ffdf75','#9d4b08'],dragon:['#ff6a57','#541019'],wolf:['#7fe8ff','#143a80'],shield:['#9ae7ff','#10345d'],crown:['#ffe48a','#8b5600'],phoenix:['#ffb45d','#a51d24'],skull:['#e6e8ff','#393b60'],katana:['#ff6f91','#4d1028'],flame:['#ffae42','#7d160e'],bolt:['#8fe6ff','#164b96'],claw:['#d4a2ff','#411b75'],aw:['#ffe7a1','#704300'],queen:['#ff9fe6','#5a1d7d'],gamer:['#8fe8ff','#16305f'],ninja:['#ff7d7d','#50131b'],fox:['#ffc77b','#8a3518'],moon:['#b5c8ff','#25215e'],flower:['#ffa9df','#672c70'],diamond:['#8df5ff','#174d7b'],star:['#ffe991','#73501b']};
+    const colors=palette[key]||palette.aw; let art='';
+    const shapes={
+      lion:'<path d="M80 24 95 38 113 35 124 53 116 71 120 94 102 119 80 132 58 119 40 94 44 71 36 53 47 35 65 38Z" fill="url(#metal)" stroke="#fff0a8" stroke-width="3"/><path d="M58 61 70 55 80 64 90 55 102 61 96 83 80 101 64 83Z" fill="#111522"/><path d="M63 69 73 72 68 78M97 69 87 72 92 78M72 91 80 85 88 91" fill="none" stroke="#ffd36d" stroke-width="4" stroke-linecap="round"/>',
+      dragon:'<path d="M31 91 49 72 44 47 67 57 86 35 92 59 121 48 109 71 126 88 102 94 89 119 73 100 51 112Z" fill="url(#metal)" stroke="#ffd0c2" stroke-width="3"/><path d="M81 67 101 74 86 81 77 96 72 80 57 74Z" fill="#15111a"/><circle cx="91" cy="73" r="3" fill="#fff"/>',
+      wolf:'<path d="M42 39 64 50 80 40 96 50 118 39 113 77 99 104 80 124 61 104 47 77Z" fill="url(#metal)" stroke="#c3f8ff" stroke-width="3"/><path d="M55 70 72 76 80 88 88 76 105 70 97 93 80 107 63 93Z" fill="#071221"/><path d="M64 76 72 78M96 76 88 78" stroke="#fff" stroke-width="3"/>',
+      shield:'<path d="M80 25 119 40 114 84 98 109 80 128 62 109 46 84 41 40Z" fill="url(#metal)" stroke="#d5faff" stroke-width="4"/><path d="M80 40 104 49 100 82 80 106 60 82 56 49Z" fill="#101a31" stroke="#75dfff" stroke-width="3"/><path d="M80 49V95M62 70H98" stroke="#b8f4ff" stroke-width="5"/>',
+      crown:'<path d="M34 55 57 72 80 38 103 72 126 55 116 103 44 103Z" fill="url(#metal)" stroke="#fff0a8" stroke-width="3"/><path d="M43 112H117" stroke="#fff0a8" stroke-width="8" stroke-linecap="round"/><circle cx="34" cy="52" r="7" fill="#fff0a8"/><circle cx="80" cy="34" r="8" fill="#fff0a8"/><circle cx="126" cy="52" r="7" fill="#fff0a8"/>',
+      phoenix:'<path d="M80 122 64 91 36 98 49 73 28 49 61 56 80 27 99 56 132 49 111 73 124 98 96 91Z" fill="url(#metal)" stroke="#ffe0a2" stroke-width="3"/><path d="M80 58 92 83 80 104 68 83Z" fill="#fff0bd"/>',
+      skull:'<path d="M48 42 67 31 93 31 112 42 117 69 105 87 101 105 89 105 85 119 75 119 71 105 59 105 55 87 43 69Z" fill="url(#metal)" stroke="#f1f1ff" stroke-width="3"/><path d="M56 62 71 58 76 73 64 78ZM104 62 89 58 84 73 96 78Z" fill="#111827"/><path d="M70 91H90M75 91V102M85 91V102" stroke="#111827" stroke-width="4"/>',
+      katana:'<path d="M45 115 104 44 116 31 111 49 52 121Z" fill="url(#metal)" stroke="#ffd2e0" stroke-width="2"/><path d="M36 108 55 125M30 116 44 130" stroke="#fff" stroke-width="6" stroke-linecap="round"/><path d="M49 108 107 39" stroke="#fff" stroke-width="2"/>',
+      flame:'<path d="M81 25C96 49 119 58 108 87 101 111 85 124 67 116 40 105 45 81 60 65 60 83 72 85 72 70 73 55 82 44 81 25Z" fill="url(#metal)" stroke="#ffdc91" stroke-width="3"/><path d="M81 73C93 91 84 106 72 106 62 103 66 90 81 73Z" fill="#fff4c2"/>',
+      bolt:'<path d="M88 25 45 87 72 87 63 128 116 64 87 64Z" fill="url(#metal)" stroke="#d9f9ff" stroke-width="3"/>',
+      claw:'<path d="M42 31 60 49 56 103 73 66 82 121 96 64 113 103 111 48 127 34 118 111 95 130 80 105 65 130 43 111Z" fill="url(#metal)" stroke="#f3d8ff" stroke-width="3"/>',
+      aw:'<path d="M80 26 120 43 112 91 80 122 48 91 40 43Z" fill="url(#metal)" stroke="#fff0a8" stroke-width="3"/><text x="80" y="85" text-anchor="middle" font-size="31" font-weight="900" fill="#17101b" font-family="Arial">AW</text>',
+      queen:'<path d="M34 55 57 71 80 37 103 71 126 55 116 102 44 102Z" fill="url(#metal)" stroke="#ffd7f3" stroke-width="3"/><path d="M48 112H112" stroke="#ffd7f3" stroke-width="7"/><path d="M64 81 80 91 96 81" fill="none" stroke="#3b163d" stroke-width="4"/>',
+      gamer:'<path d="M48 53 64 40 96 40 112 53 122 91 108 105 91 88 69 88 52 105 38 91Z" fill="url(#metal)" stroke="#d4faff" stroke-width="3"/><path d="M57 65V81M49 73H65M98 68h1M108 80h1" stroke="#071421" stroke-width="5" stroke-linecap="round"/>',
+      ninja:'<path d="M39 43 80 28 121 43 112 91 80 123 48 91Z" fill="url(#metal)" stroke="#ffc4c4" stroke-width="3"/><path d="M48 65 80 59 112 65 104 84 80 92 56 84Z" fill="#090d18"/><path d="M62 72 72 74M98 72 88 74" stroke="#fff" stroke-width="4"/>',
+      fox:'<path d="M40 42 70 54 80 43 90 54 120 42 112 82 80 119 48 82Z" fill="url(#metal)" stroke="#ffe0b0" stroke-width="3"/><path d="M57 69 72 73 80 86 88 73 103 69 95 91 80 105 65 91Z" fill="#211321"/>',
+      moon:'<path d="M100 30C61 34 43 78 65 106 80 124 104 121 121 107 86 110 65 81 78 55 83 44 91 36 100 30Z" fill="url(#metal)" stroke="#e0e7ff" stroke-width="3"/>',
+      flower:'<g fill="url(#metal)" stroke="#ffe1f5" stroke-width="2"><ellipse cx="80" cy="51" rx="15" ry="27"/><ellipse cx="80" cy="101" rx="15" ry="27"/><ellipse cx="55" cy="76" rx="27" ry="15"/><ellipse cx="105" cy="76" rx="27" ry="15"/></g><circle cx="80" cy="76" r="15" fill="#fff0fb"/>',
+      diamond:'<path d="M80 27 124 69 80 125 36 69Z" fill="url(#metal)" stroke="#d4fbff" stroke-width="4"/><path d="M36 69H124M62 42 80 125 98 42" stroke="#efffff" stroke-width="3" fill="none"/>',
+      star:'<path d="M80 27 94 61 131 64 103 88 112 123 80 104 48 123 57 88 29 64 66 61Z" fill="url(#metal)" stroke="#fff2b8" stroke-width="3"/>'
+    };
+    art=shapes[key]||shapes.aw;
+    const svg='<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#071221"/><stop offset="1" stop-color="#25112d"/></linearGradient><linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="'+colors[0]+'"/><stop offset="1" stop-color="'+colors[1]+'"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="2.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect width="160" height="160" rx="80" fill="url(#bg)"/><circle cx="80" cy="80" r="70" fill="none" stroke="'+colors[0]+'" stroke-opacity=".8" stroke-width="2"/><g filter="url(#glow)">'+art+'</g></svg>';
+    return "data:image/svg+xml;charset=UTF-8,"+encodeURIComponent(svg);
   }
+  window.awAvatarData=awAvatarData;
   async function loadAwProfile(){
     try{
       if(!awPendingUser||!awDb)return;
@@ -1991,7 +2040,7 @@ drawParticles();
     return result;
   }
   window.awSaveProfile=async function(){
-    const status=document.getElementById("awProfileStatus"), name=(document.getElementById("awProfileName").value||"").trim(), uid=(document.getElementById("awProfileUid").value||"").trim(), avatar=(window.awGetSelectedAvatar?window.awGetSelectedAvatar():"⚔️");
+    const status=document.getElementById("awProfileStatus"), name=(document.getElementById("awProfileName").value||"").trim(), uid=(document.getElementById("awProfileUid").value||"").trim(), avatar=(window.awGetSelectedAvatar?window.awGetSelectedAvatar():"g:lion");
     if(!awPendingUser||!awDb){status.textContent="Please sign in with Google again.";return;}
     if(!name){status.textContent="Player Name is required.";return;}
     if(!/^[0-9]{10}$/.test(uid)){status.textContent="Game UID must be exactly 10 digits.";return;}
@@ -2018,37 +2067,20 @@ drawParticles();
   function finishIntro(){
     const w=document.getElementById("welcome");
     if(w) w.classList.add("hide");
-    setTimeout(function(){
+    setTimeout(async function(){
       if(w) w.remove();
-
-      // Always show the login screen after the intro, including local testing.
-      // Firebase authentication itself is activated once the site is served online.
       if(!isOnlineSite()){
         showLogin();
         setStatus("Preview mode: Google sign-in works only after the website is published online.");
         return;
       }
-
-      const ok=initFirebase();
+      // Firebase restores LOCAL persistence first. Its auth-state listener decides
+      // whether to show the login screen, UID setup, or the signed-in website.
+      showLogin();
+      const ok=await initFirebase();
       if(!ok){
         showLogin();
         setStatus("Online mode: connect Firebase to use Google Login.");
-        return;
-      }
-
-      if(awAuth && awAuth.currentUser){
-        const user=awAuth.currentUser;
-        if(user.isAnonymous){
-          awAuth.signOut().finally(showLogin);
-        }else{
-          awPendingUser=user;
-          awDb.collection("players").doc(user.uid).get().then(function(s){
-            if(s.exists && s.data().gameUid) { awCurrentProfile=s.data(); enterMainSite(); }
-            else showUid();
-          }).catch(function(){showUid();});
-        }
-      }else{
-        showLogin();
       }
     },1050);
   }
@@ -2060,11 +2092,24 @@ drawParticles();
 
 <script id="aw-built-in-avatar-system">
 (function(){
- const avatars=[['⚔️','ANIME'],['🥷','ANIME'],['👹','ANIME'],['🦊','ANIME'],['🐉','ANIME'],['🌙','ANIME'],['🗡️','ANIME'],['👑','ANIME'],['🐺','ESPORTS'],['🦂','ESPORTS'],['🔥','ESPORTS'],['💀','ESPORTS'],['⚡','ESPORTS'],['🎯','ESPORTS'],['🛡️','ESPORTS'],['♛','ESPORTS'],['🌌','UNIVERSAL'],['💎','UNIVERSAL'],['🪽','UNIVERSAL'],['🌸','UNIVERSAL'],['🖤','UNIVERSAL'],['💜','UNIVERSAL'],['🌟','UNIVERSAL'],['☄️','UNIVERSAL'],['🐯','ESPORTS'],['🦅','ESPORTS'],['🦈','ESPORTS'],['🎮','UNIVERSAL'],['👾','UNIVERSAL'],['🧿','UNIVERSAL']];
- let selected='⚔️';
- function render(){const box=document.getElementById('awAvatarPicker');if(!box)return;box.innerHTML=avatars.map((a,i)=>`<button type="button" class="aw-avatar-choice ${a[0]===selected?'selected':''}" data-avatar="${i}" aria-label="${a[1]} avatar ${i+1}" title="${a[1]} avatar">${a[0]}</button>`).join('');box.querySelectorAll('[data-avatar]').forEach(b=>b.addEventListener('click',()=>{selected=avatars[+b.dataset.avatar][0];render();const img=document.getElementById('awProfileAvatar');if(img){img.style.display='none';let e=document.getElementById('awAvatarPreview');if(!e){e=document.createElement('div');e.id='awAvatarPreview';e.className='aw-avatar-emoji';e.style.cssText='width:76px;height:76px;border-radius:50%;display:grid;place-items:center;font-size:34px;background:linear-gradient(145deg,#102747,#241341);border:1px solid #46d7ff';img.insertAdjacentElement('afterend',e)}e.textContent=selected;}}));}
- window.awGetSelectedAvatar=()=>selected;
- window.awSetSelectedAvatar=(v)=>{if(v){selected=v;render();}};
+ const avatars=[
+  {id:'g:lion',cat:'GAMING',name:'Crowned Lion'},{id:'g:dragon',cat:'GAMING',name:'Crimson Dragon'},{id:'g:wolf',cat:'GAMING',name:'Neon Wolf'},{id:'g:shield',cat:'GAMING',name:'War Shield'},{id:'g:crown',cat:'GAMING',name:'Royal Crown'},{id:'g:phoenix',cat:'GAMING',name:'Phoenix'},{id:'g:skull',cat:'GAMING',name:'Skull Emblem'},{id:'g:katana',cat:'GAMING',name:'Katana'},{id:'g:flame',cat:'GAMING',name:'Inferno'},{id:'g:bolt',cat:'GAMING',name:'Lightning'},{id:'g:claw',cat:'GAMING',name:'Claw Mark'},{id:'g:aw',cat:'GAMING',name:'ANIME WORLD Crest'},
+  {id:'g:queen',cat:'ESPORTS',name:'Queen Crest'},{id:'g:gamer',cat:'ESPORTS',name:'Gamer Crest'},{id:'g:ninja',cat:'ESPORTS',name:'Shadow Ninja'},{id:'g:fox',cat:'ESPORTS',name:'Fox Crest'},{id:'g:dragon',cat:'ESPORTS',name:'Dragon Esports'},{id:'g:wolf',cat:'ESPORTS',name:'Wolf Esports'},{id:'g:phoenix',cat:'ESPORTS',name:'Phoenix Esports'},{id:'g:skull',cat:'ESPORTS',name:'Skull Esports'},
+  {id:'a:ninja',cat:'ANIME',name:'Anime Ninja',emoji:'🥷'},{id:'a:oni',cat:'ANIME',name:'Oni Mask',emoji:'👹'},{id:'a:fox',cat:'ANIME',name:'Anime Fox',emoji:'🦊'},{id:'a:dragon',cat:'ANIME',name:'Anime Dragon',emoji:'🐉'},{id:'a:moon',cat:'ANIME',name:'Moon Warrior',emoji:'🌙'},{id:'a:katana',cat:'ANIME',name:'Anime Katana',emoji:'🗡️'},
+  {id:'u:moon',cat:'UNIVERSAL',name:'Moon',emoji:'🌌'},{id:'u:flower',cat:'UNIVERSAL',name:'Flower',emoji:'🌸'},{id:'u:diamond',cat:'UNIVERSAL',name:'Diamond',emoji:'💎'},{id:'u:star',cat:'UNIVERSAL',name:'Star',emoji:'🌟'}
+ ];
+ let selected='g:lion', category='GAMING';
+ function iconFor(a){return a.emoji?awAvatarData(a.emoji):awAvatarData(a.id);}
+ function render(){
+  const box=document.getElementById('awAvatarPicker'),tabs=document.getElementById('awAvatarCategories');if(!box)return;
+  if(tabs){tabs.querySelectorAll('[data-category]').forEach(t=>{t.classList.toggle('active',t.dataset.category===category);t.setAttribute('aria-selected',t.dataset.category===category?'true':'false');});}
+  const list=avatars.filter(a=>a.cat===category);
+  box.innerHTML=list.map(a=>`<button type="button" class="aw-avatar-choice ${a.id===selected?'selected':''}" data-avatar="${a.id}" aria-label="${a.name}" title="${a.name}"><img src="${iconFor(a)}" alt=""><span style="font-size:9px;color:#cdefff;line-height:1.1;text-align:center">${a.name}</span></button>`).join('');
+  box.querySelectorAll('[data-avatar]').forEach(b=>b.addEventListener('click',()=>{selected=b.dataset.avatar;render();const img=document.getElementById('awProfileAvatar');if(img){img.src=awAvatarData(selected.startsWith('a:')?({ 'a:ninja':'🥷','a:oni':'👹','a:fox':'🦊','a:dragon':'🐉','a:moon':'🌙','a:katana':'🗡️'}[selected]||'🥷'):selected.startsWith('u:')?({'u:moon':'🌌','u:flower':'🌸','u:diamond':'💎','u:star':'🌟'}[selected]||'🌟'):selected);img.style.display='block';const e=document.getElementById('awAvatarPreview');if(e)e.remove();}}));
+ }
+ if(document.getElementById('awAvatarCategories'))document.getElementById('awAvatarCategories').addEventListener('click',e=>{const t=e.target.closest('[data-category]');if(t){category=t.dataset.category;render();}});
+ window.awGetSelectedAvatar=()=>{const a=avatars.find(x=>x.id===selected);return a&&a.emoji?a.emoji:selected;};
+ window.awSetSelectedAvatar=(v)=>{if(!v)return;const match=avatars.find(a=>a.id===v||a.emoji===v);selected=match?match.id:(String(v).includes(':')?v:'g:lion');const found=avatars.find(a=>a.id===selected);category=found?found.cat:'GAMING';render();};
  document.addEventListener('DOMContentLoaded',render);setTimeout(render,300);
 })();
 </script>
