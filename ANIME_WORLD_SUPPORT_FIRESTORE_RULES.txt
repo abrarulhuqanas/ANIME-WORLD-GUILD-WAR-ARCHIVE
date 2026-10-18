@@ -1,0 +1,30 @@
+ANIME WORLD — Firestore support ticket rules add-on
+
+IMPORTANT: Do not replace your entire existing Firestore rules with this snippet.
+Inside your existing:
+  match /databases/{database}/documents {
+add this match block alongside your existing players/profile match blocks:
+
+    match /supportTickets/{ticketId} {
+      allow create: if request.auth != null
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.status == 'open'
+        && request.resource.data.subject is string
+        && request.resource.data.subject.size() >= 1
+        && request.resource.data.subject.size() <= 100
+        && request.resource.data.message is string
+        && request.resource.data.message.size() >= 10
+        && request.resource.data.message.size() <= 2500
+        && request.resource.data.category is string
+        && request.resource.data.category.size() <= 60;
+
+      allow read: if request.auth != null
+        && resource.data.userId == request.auth.uid;
+
+      // Users cannot edit or delete tickets after submitting them.
+      // Admin response/status changes should be made through a trusted admin-only workflow.
+      allow update, delete: if false;
+    }
+
+This is an add-on only. Preserve all existing rules, then test in Firebase Rules Simulator before publishing.
+The support form uses the Firestore collection name: supportTickets.
